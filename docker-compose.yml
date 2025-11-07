@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  career-matrix-app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_SERVER_ENABLE_CORS=false
+    volumes:
+      - ./data:/app/data  # Optional: for persistent data files
+    restart: unless-stopped

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+streamlit-env/
+.venv
+
+# Streamlit
+.streamlit/
+
+# macOS
+.DS_Store
+
+# Local data files (optional - uncomment if you don't want to commit data files)
+# *.csv
+# *.xlsx
+# *.xls
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
