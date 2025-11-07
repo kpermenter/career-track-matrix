@@ -21,7 +21,8 @@ from lib.utils import (
     inject_custom_css,
     print_validation_info,
     CANONICAL_SECTIONS,
-    ICON_LEGEND
+    ICON_LEGEND,
+    LEVEL_TITLES
 )
 
 def main():
@@ -185,7 +186,7 @@ def main():
         return
 
     # Create tabs for each selected level
-    level_tabs = st.tabs([f"🎯 {level}" for level in selected_levels])
+    level_tabs = st.tabs([f"🎯 {level} — {LEVEL_TITLES.get(level, level)}" for level in selected_levels])
 
     for i, level in enumerate(selected_levels):
         with level_tabs[i]:

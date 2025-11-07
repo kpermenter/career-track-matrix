@@ -69,6 +69,17 @@ ICON_LEGEND = {
     '🎯': 'Executive Leadership'
 }
 
+# Level titles mapping
+LEVEL_TITLES = {
+    'L1': 'Junior Engineer',
+    'L2': 'Engineer',
+    'L3': 'Senior Engineer',
+    'L4': 'Staff Engineer',
+    'L5': 'Senior Staff Engineer',
+    'L6': 'Principal Engineer',
+    'L7': 'Architect'
+}
+
 # Canonical section names (in framework order)
 CANONICAL_SECTIONS = [
     "Experience Overview",
@@ -366,7 +377,7 @@ def load_matrix_table(file_path: str = None, uploaded_file=None) -> pd.DataFrame
     result_df = pd.DataFrame(result_data)
 
     if result_df.empty:
-        return pd.DataFrame(columns=['level', 'section', 'prefix', 'body', 'examples', 'pod_type', 'scope', 'impact_icons', 'impact_audience', 'impact_summary'])
+        return pd.DataFrame(columns=['level', 'section', 'prefix', 'body', 'examples', 'pod_type', 'scope', 'impact_icons', 'impact_audience', 'impact_summary', 'level_title'])
 
     # Ensure all required columns exist
     required_columns = ['level', 'section', 'prefix', 'body', 'examples', 'pod_type']
@@ -377,6 +388,14 @@ def load_matrix_table(file_path: str = None, uploaded_file=None) -> pd.DataFrame
 
     # Add impact columns
     result_df = add_impact_columns(result_df)
+
+    # Add level titles
+    result_df['level_title'] = result_df['level'].map(LEVEL_TITLES).fillna(result_df['level'])
+
+    # Debug print for validation
+    level_mapping = result_df[['level', 'level_title']].drop_duplicates().sort_values('level')
+    print("Level mapping validation:")
+    print(level_mapping)
 
     # Set up proper ordering
     level_order = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7']

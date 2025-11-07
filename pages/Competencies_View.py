@@ -21,7 +21,8 @@ from lib.utils import (
     inject_custom_css,
     print_validation_info,
     CANONICAL_SECTIONS,
-    ICON_LEGEND
+    ICON_LEGEND,
+    LEVEL_TITLES
 )
 
 def main():
@@ -211,7 +212,8 @@ def main():
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    st.markdown(f"### {level1}")
+                    level1_title = LEVEL_TITLES.get(level1, level1)
+                    st.markdown(f"### {level1} — {level1_title}")
                     level1_data = section_data[section_data['level'] == level1]
                     for _, row in level1_data.iterrows():
                         # Render badge first
@@ -228,7 +230,8 @@ def main():
                                 st.write(row['examples'])
 
                 with col2:
-                    st.markdown(f"### {level2}")
+                    level2_title = LEVEL_TITLES.get(level2, level2)
+                    st.markdown(f"### {level2} — {level2_title}")
                     level2_data = section_data[section_data['level'] == level2]
                     for _, row in level2_data.iterrows():
                         # Render badge first
@@ -263,7 +266,7 @@ def main():
                     section_data = section_data.sort_values('level')
 
                     for _, row in section_data.iterrows():
-                        st.markdown(f"### {row['level']}")
+                        st.markdown(f"### {row['level']} — {row['level_title']}")
 
                         # Render scope badge
                         render_scope_badge(row['scope'], row['impact_icons'],
