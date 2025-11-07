@@ -500,15 +500,23 @@ def main():
 
     st.sidebar.header("📁 Load Data")
 
+    df = pd.DataFrame()
     load_option = st.sidebar.radio(
         "Data source:",
-        ["Upload file", "Local path"],
-        help="Choose whether to upload a file or use a local path"
+        ["Use default file", "Upload file", "Local path"],
+        help="Choose your data source"
     )
 
-    df = pd.DataFrame()
+    if load_option == "Use default file":
+        # Load the bundled file automatically
+        default_file = "data/career_track_matrix.xlsx"
+        if os.path.exists(default_file):
+            df = load_matrix_table_with_impact(file_path=default_file)
+            st.sidebar.success("✅ Default career track matrix loaded")
+        else:
+            st.sidebar.error("❌ Default file not found")
 
-    if load_option == "Upload file":
+    elif load_option == "Upload file":
         uploaded_file = st.sidebar.file_uploader(
             "Upload CSV or Excel file",
             type=['csv', 'xlsx', 'xls'],
@@ -517,9 +525,9 @@ def main():
         if uploaded_file:
             df = load_matrix_table_with_impact(uploaded_file=uploaded_file)
 
-    else:
+    else:  # Local path
         default_csv = os.path.expanduser("~/Desktop/matrix_streamlit.csv")
-        default_excel = os.path.expanduser("~/Desktop/2025H1 Engineering Career Track (1).xlsx")
+        default_excel = os.path.expanduser("~/Desktop/matrix_streamlit.xlsx")
 
         file_path = st.sidebar.text_input(
             "File path:",

@@ -21,6 +21,11 @@ streamlit-env/
 # *.xlsx
 # *.xls
 
+# BUT include files in the data directory
+!data/*.csv
+!data/*.xlsx
+!data/*.xls
+
 # IDE
 .vscode/
 .idea/
